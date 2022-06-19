@@ -1,0 +1,237 @@
+{%include 'django_registration/base.html'%}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+
+<body style=" background-image: url('https://cdn.pixabay.com/photo/2016/04/25/23/30/home-1353389__340.jpg');
+background-size: cover;
+background-repeat:  no-repeat;
+font-family: 'Comic Sans MS', cursive, sans-serif;">
+    <div class="container-fluid">
+        <div class="row mt">
+            <div class="col-md-6 mt-2">
+                <div class="card p-2" style="background-color: rgb(49, 255, 142);">
+                    <h5 class="mt-2 mb-3 p-2"
+                        style="color: black; font-weight:bold;border-bottom: 2px solid rgb(115, 219, 115);"><i
+                            class="fas fa-map-marker-alt green-text"></i> {{ neighbourhood.name }}
+                        ({{neighbourhood.location}})</h5>
+                    <div class="view overlay rounded z-depth-1-half p-1 bg-white">
+                        <img src="{{ neighbourhood.hood_photo.url }}" class="card-img-top" alt="{{ hood.name }}"
+                            height="300px">
+                            <a>
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-header text-center text-white">
+                            <span><strong>{{neighbourhood.members.count}}</strong>
+                                Member{{neighbourhood.members.count | pluralize}}</span>
+                            | <strong>{{ neighbourhood.business.count }}</strong> Businesses | <strong>
+                                {{ neighbourhood.neighbourhood_post.count }}</strong>
+                            Post{{ neighbourhood.neighbourhood_post.count | pluralize }}
+                        </h6>
+                    </div>
+                    <div class="card-content">
+                        <h5 class="mb-3 p-2" style="font-weight:bold;border-bottom: 2px solid rgb(115, 219, 115);">
+                            <i class="fas fa-info-circle green-text"></i>
+                            <b class="text-dark">About {{ neighbourhood.name }} Neighbourhood</b>
+                        </h5>
+                        <p class="card-text">{{neighbourhood.description}}</p>
+                    </div>
+                    <div class="card-content mt-3">
+                        <h5 class="mb-3 p-2" style="font-weight:bold;border-bottom: 2px solid rgb(115, 219, 115);">
+                            <i class="fas fa-phone-volume green-text"></i>
+                            <b class="text-dark">Contact Informations</b>
+                        </h5>
+                        <p class="card-text">
+                            <span class="text-info">Police Department</span> &nbsp;
+                            <strong>{{neighbourhood.police_number}}</strong> <br>
+                            <span class="text-info">Hospital Department</span>
+                            <strong>{{neighbourhood.health_number}}</strong>
+                        </p>
+                    </div>
+                    <div class="card-content mt-3">
+                        <h5 class="mb-3 p-2" style="font-weight:bold;border-bottom: 2px solid rgb(115, 219, 115);">
+                            <i class="fas fa-calendar-week green-text"></i>
+                            <b class="text-dark">Events</b>
+                        </h5>
+                        <p class="card-text">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img class="" width="100" height="100"
+                                        src="{% static 'photos/date.jpg' %}">
+                                </div>
+                                <div class="col-md-9 mt-3">
+                                    <h6 class="text-primary">Welcome Party</h6>
+                                    <p>Lives at 345 Oak Court <br>
+                                        <small><span class="text-muted">13 Attending</span></small>
+                                    </p>
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="card-content mt-3">
+                        <h5 class="mb-3 p-2" style="font-weight:bold;border-bottom: 2px solid rgb(115, 219, 115);">
+                            <i class="fas fa-file-word green-text"></i>
+                            <b class="text-dark">Recommendations</b>
+                        </h5>
+                        <p class="card-text">
+                            <div class="mt-3 p-2">
+                                <h5 class="text-primary float-left">Babysitter</h5>
+                                <p class="float-right" > recommended by <b class="text-info">Brian James</b> </p>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="card-content mt-3">
+                        <h5 class="mb-3 p-2" style="font-weight:bold;border-bottom: 2px solid rgb(115, 219, 115);">
+                            <i class="fas fa-registered green-text"></i>
+                            <b class="text-dark">New Members</b>
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class="rounded-circle" width="100" height="100"
+                                    src="{{ user.profile.avatar.url }}">
+                            </div>
+                            <div class="col-md-9 mt-3">
+                                <h6 class="text-primary">Brian James</h6>
+                                <p>Lives at 345 Oak Court</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-2">
+                <div class="card p-4" style="background-color: rgb(49, 255, 142);">
+                    <h5 class="mb-3 p-2" style="font-weight:bold;border-bottom: 2px solid rgb(115, 219, 115);">
+                        <i class="far fa-newspaper green-text"></i>
+                        <b class="text-dark">{{ neighbourhood.name }} Neighbourhood News</b>
+                    </h5>
+                    <a class="btn btn-sm btn-success mb-4 mr-4" href="{% url 'post' neighbourhood.id %}">New Post</a>
+                    <hr>
+                    {% for post in posts %}
+                    <div class="p-2" style="background-color: rgb(49, 255, 142);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img class="rounded-circle account-img" width="100" height="100"
+                                        src="{{ user.profile.avatar.url }}">
+                                </div>
+                                <div class="col-md-9 mt-3">
+                                    <h6 class="text-primary">{{ post.user.user.username | title }}&nbsp;<b
+                                            class="text-muted">{{ post.title }}</b> </h6>
+                                    <p>{{ post.post }}</p>
+                                    <small><span class="text-muted">Posted
+                                            {{ post.date_posted | timesince }} ago...</span></small>
+                                    <a href="#!" class="float-right">Reply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid text-center">
+        <div class="container pt-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="" class="btn btn-sm btn-success mb-4 mr-4" data-toggle="modal" data-target="#Business">New
+                        Business</a>
+                    <a class="btn btn-sm btn-success mb-4" href="{% url 'neighbourhood' %}">Exit Page</a>
+                    {% if neighbourhood.admin == user.profile %}
+                    {% endif %}
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active rgba-stylish-strong text-success" id="home-tab" data-toggle="tab"
+                                href="#home" role="tab" aria-controls="home" aria-selected="true">Business</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link rgba-stylish-strong text-success" id="profile-tab" data-toggle="tab"
+                                href="#profile" role="tab" aria-controls="profile" aria-selected="false">Posts</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <h5 class="D-block mt-3 mb-2 text-white">Available Businesses</h5>
+                            <div class="row">
+                                {% for busines in business %}
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-success">{{busines.name}}:
+                                                <span class="text-muted"
+                                                    style="font-size: 14px;">{{busines.email}}</span>
+                                            </h6>
+                                            <p class="card-text text-dark">{{ busines.description }}</p>
+                                            <p class="card-text">
+                                                Owner: <small class="text-success">
+                                                    {{ busines.user.user.username | title }}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <h5 class="D-block mt-3 mb-2 text-white">New Posts</h5>
+                            <div class="row">
+                                {% for post in posts %}
+                                <div class="col-md-4">
+                                    <div class="card mb-4 p-3">
+                                        <div class="panel-header d-flex">
+                                            <img class="rounded-circle" width="35" height="35"
+                                            src="{{ user.profile.avatar.url }}">
+                                            <h6 class="card-title text-center text-success pl-2 mt-2"><b class="text-info">
+                                                {{ post.user.user.username | title }}</b>&nbsp;{{ post.title }}</h6>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="card-text"><i class="fas fa-quote-left text-success"></i>
+                                                {{ post.post }} <i class="fas fa-quote-right text-success"></i></p>
+                                            <p class="card-text">
+                                                <small class="text-muted">Posted
+                                                    {{ post.date_posted | timesince }} ago...</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="modal fade" id="Business" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-white" id="exampleModalCenterTitle"
+                                        style="text-align: center">
+                                        New Business
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"> <i class="fa fa-times-circle text-success"></i></span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="" method="post">
+                                        {% csrf_token%}
+                                        {{form | crispy}}
+                                        <button type="submit" class="btn btn-md btn-success">Add</button>
+                                        <button type="button" class="btn btn-md btn-outline-danger "
+                                            data-dismiss="modal" style="float:right">
+                                            Cancel
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
