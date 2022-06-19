@@ -1,0 +1,53 @@
+{%extends "django_registration/base.html"%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+<body style=" background-image: url('https://images.unsplash.com/photo-1602928402725-5388983f170b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80');
+background-size: cover;
+background-repeat:  no-repeat;
+font-family: 'Comic Sans MS', cursive, sans-serif;">
+  <div class="container" align=center>
+    <div class="row">
+      <div class="col-md-12">
+        {% if form.errors %}
+        <p class="text-danger"> Password or Username is incorrect </p>
+        {% endif %}
+      </div>
+      <div class="col-md-12 mt-5">   
+        {% if form.errors %}
+        <p class="text-danger"> Some Information Might be Incorrect </p>
+        {% endif %}
+        <div class="card rgba-stylish-strong mb-4" style="max-width:30rem;">
+          <div class="card-header text-center">
+            <img src="{% static 'photos/logo.png' %}"  width="90" height="80"class="d-inline-block align-bottom" alt="logo"><br>
+            <h2 class="text-center mt-1" style="font-size:14px;font-family: 'apercu',sans-serif;color:rgb(115, 219, 115);">Login to keep track of all the calories you are burning every day</h2>
+          </div>
+          <div class="card-body text-white">
+            <form action="/accounts/login/" method="post" style="font-family: 'apercu',sans-serif; font-size: 20px;">
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              <div class="form-group">
+                <input type="submit" class="btn btns btn-sm" value="Login">
+              </div>
+              <input type="hidden" name="next" value="{{next}}">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card rgba-stylish-strong  mt-5" style="width: 30rem;">
+          <div class="card-body text-center">
+            <h5 class="card-title white-text" style="font-family: 'apercu',sans-serif">Don't have an account?</h5>
+            <h2 style="font-size:16px;font-family: 'Dosis', sans-serif;color:rgb(115, 219, 115);">By signing up, you agree to our Terms, Data Policy and Cookies Policy.</h2>
+            <a href="/accounts/register" class="btn btn-sm btns" style="font-family: 'Dosis', sans-serif;">Sign
+              Up</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+{% endblock %}
