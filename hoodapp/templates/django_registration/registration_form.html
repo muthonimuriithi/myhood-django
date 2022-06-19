@@ -1,0 +1,55 @@
+{%extends "django_registration/base.html"%}
+{% load bootstrap4 %}
+{%load static%}
+{% block content %}
+
+<body style=" background-image: url('https://cdn.pixabay.com/photo/2016/04/25/23/30/home-1353389__340.jpg');
+background-size: cover;
+background-repeat:  no-repeat;
+font-family: 'Comic Sans MS', cursive, sans-serif;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mt-4 pt-3">
+        <img class="thumbnail" src="{% static 'photos/logo.png' %}" style="height:480px;width:500px;">
+        <div class="card rgba-stylish-strong  mt-5" style="width: 28rem;">
+          <div class="card-body text-center">
+            <h5 class="card-title" style="font-family: 'apercu',sans-serif;color:white;">Have an account already?</h5>
+            <h2 style="font-size:12px; font-family: 'apercu',sans-serif;color:rgb(115, 219, 115)">By signing up, you agree to our Terms, Data Policy and Cookies Policy.</h2>
+            <a href="/accounts/login" class="btn btns btn-sm" style="font-family: 'apercu',sans-serif">Login</a>
+          </div>
+        </div>
+        <div class="card rgba-stylish-strong mt-4" style="width: 28rem;">
+          <div class="card-body text-center">
+            <h5 class="card-title" style="font-family: 'apercu',sans-serif;color:white;">Get the app.</h5>
+            <a href="https://itunes.apple.com/ke/app/instagram/id389801252?mt=8"><img
+                src="{% static 'photos/store.png' %}" style="height:70px;width:200px;"></a>
+            <a href="https://play.google.com/store?hl=en"><img src="{% static 'photos/app.png' %}"
+                style="height:90px;width:200px;"></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mt-5">
+        {% if form.errors %}
+        <p class="text-danger"> Some Information Might be Incorrect </p>
+        {% endif %}
+        <div class="card rgba-stylish-strong  mb-4" style="max-width:35rem;">
+          <div class="card-header text-center">
+            <img src="{% static 'photos/logo.png' %}" style="height:150px;width:50%;" alt="">
+            <h2 class="text-center pt-2" style="font-family: 'apercu',sans-serif;font-size:15px;color:rgb(115, 219, 115);">Sign up to freely loop about everything happening in your neighborhood</h2>
+          </div>
+          <div class="card-body text-white">
+            <form action="/accounts/register/" method="post" style="font-family: 'apercu',sans-serif; font-size: 20px;">
+              {% csrf_token %} {% bootstrap_form form %}
+              <div class="form-group">
+                <input type="submit" class="btn btns btn-sm" value="Sign Up">
+              </div>
+              <input type="hidden" name="next" value="{{next}}">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</body>
+{% endblock %}
