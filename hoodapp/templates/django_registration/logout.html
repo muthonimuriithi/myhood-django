@@ -1,0 +1,23 @@
+{%extends "django_registration/base.html"%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <h3 class="white-important" style="font-family: 'Grand Hotel', cursive; color:rgb(115, 219, 115);font-size:25px;">You've been
+    logged out</h3>
+  <div class="pt-3">
+    <small class="text">
+      <h3 style="font-family: 'Grand Hotel', cursive; color:white;font-size:25px;">Login again?</h3>
+      <div class="card mt-1" style="width: 28rem;">
+        <div class="card-body text-center">
+          <h5 class="card-title">Have an account already?</h5>
+          <h2 style="color:rgb(115, 219, 115);font-size:13px;">By signing up, you agree to our Terms, Data Policy and
+            Cookies Policy.</h2>
+          <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+        </div>
+      </div>
+    </small>
+  </div>
+</div>
+
+{% endblock %}
