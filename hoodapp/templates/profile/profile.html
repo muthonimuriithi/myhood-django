@@ -1,0 +1,149 @@
+{%extends "django_registration/base.html"%}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="continer mt-5">
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="profile-image">
+                        <img class="rounded-circle account-img" width="200" height="200"
+                            src="{{ user.profile.avatar.url }}">
+                    </div>
+                </div>
+                <div class="col-md-9 mt-3">
+                    <div class="profile-user-settings d-flex">
+                        <h1 class="profile-user-name text-uppercase pt-3 font-weight-bold"
+                            style="font-family: 'Grand Hotel', cursive;font-size:28px;">{{ user.username }}
+                        </h1>&nbsp;&nbsp;
+                        <button class="btn profile-edit-btn" data-toggle="modal" data-target="#profile">Edit
+                            Profile</button>
+                        <button class="btn profile-settings-btn" data-toggle="modal" data-target="#profile"
+                            aria-label="profile settings"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="profile-stats pt-3">
+                        <div class="d-flex">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                  <span class="font-weight-bold">{{project|length}}</span> Project
+                                </li>
+                                <li class="list-inline-item">
+                                  <span class="font-weight-bold">{{profile.user.follow.all | length}}</span> Ratings
+                                </li>
+                                <li class="list-inline-item">
+                                  <span class="font-weight-bold">{{profile.user.current_user.all | length}}</span> Projects rated
+                                </li>
+                              </ul>
+                        </div>
+                    </div>
+                    <div class="profile-bio">
+                        <p class="blue-text" style="opacity: 0.9;"><span class="profile-real-name text-dark text-uppercase font-weight-bold" style="font-family: 'Grand Hotel', cursive;">{{ user.username }}
+                                bio&nbsp;:&nbsp;</span>
+                            {% if user.profile.bio %}
+                            {{ user.profile.bio }}
+                            {%else%}
+                            {{ user.username}} has no bio
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ig-photo-icons text-center">
+                        <i class="fa fa-th-large">&nbsp;&nbsp;POSTS</i>
+                        <i class="fa fa-tv ml-5">&nbsp;&nbsp;IGTV</i>
+                        <i class="fa fa-bookmark ml-5">&nbsp;&nbsp;SAVED</i>
+                        <i class="fa fa-user ml-5">&nbsp;&nbsp; TAGGED</i>
+                    </div>
+                    <br>
+                    <main>
+                        <div class="container text-center">
+                            <i class="fa fa-th-large blue-text ">&nbsp;&nbsp;My Projects</i>
+                            <div class="row">
+                                {% for project in projects %}
+                                <div class="card-columns">
+                                    <div class="card border-secondary">
+                                        <img class="card-img-top" class="img-responsive"
+                                            src="{{project.project_image.url}}" alt="{{project.project_title}}" 
+                                            style="max-height: 598.02px; max-width: 598.02px;">
+                                    </div>
+                                    {% empty %}
+                                    <div class="col-md-12">
+                                        <h2>Profile has no projects</h2>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% if profile.user == user %}
+                            <p><a href="{% url 'project' %}">Submit Project</a></p>
+                            {% endif %}
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+<div class="modal fade" id="profile" tabindex="-1" aria-labelledby="profile" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="content-section pt-4">
+                    <div class="media">
+                        <img class="rounded-circle account-img" width="100" height="100"
+                            src="{{ user.profile.avatar.url }}">
+                        <div class="media-body pl-2 mt-3">
+                            <h2 class="account-heading" style="font-family: 'Grand Hotel', cursive;">{{ user.username }}</h2>
+                            <p class="text-primary">{{ user.email }}</p>
+                        </div>
+                    </div>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Profile Info</legend>
+                            {{ u_form | crispy }}
+                            {{ p_form | crispy }}
+                        </fieldset>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-outline-info">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt-3">
+    <div class="col-md-12">
+        <div class="footer-page">
+            <ul class="text-center" style="font-family: 'apercu',sans-serif;">
+                <li class="footer"><a class="contact" href="https://www.awwwards.com/contact-us/">Contact Us</a>
+                </li>
+                <li class="footer"><a class="faqs" href="https://www.awwwards.com/faqs/">F.A.G</a></li>
+                <li class="footer"><a class="cookies" href="https://www.awwwards.com/cookies-policy/">Cookies
+                        Policy</a></li>
+                <li class="footer"><a class="privacy" href="https://www.awwwards.com/privacy-policy/">Privacy
+                        Policy</a></li>
+                <li class="footer"><a class="terms" href="https://www.awwwards.com/terms/">Legal Terms</a></li>
+                <li class="footer"><a class="language" href="https://techcrunch.com/tag/language-support/">Language</a>
+                </li>
+            </ul>
+        </div>
+        <h6 class="copyright" style="font-size: 12px;"> <strong>© 2020 COLLINS AKUMU</strong> </h6>
+    </div>
+</div>
+
+{% endblock %}
