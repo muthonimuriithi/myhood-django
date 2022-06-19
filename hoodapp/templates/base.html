@@ -1,0 +1,86 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    {% if title %}
+    <title> Neighbourhood {{title}}</title>
+    {% else %}
+    <title> Neighbourhood </title>
+    {% endif %}
+
+    {% block styles %}
+    {% bootstrap_css %}
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'css/logo1.png' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% endblock %}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand font-weight-bold" href="/"><img src="{% static 'css/logo1.png' %}"  width="40" height="38"class="d-inline-block align-bottom" alt="logo">&nbsp;<b class="logo" style="border-bottom: 2px solid rgb(115, 219, 115);color:rgb(115, 219, 115);">The Neighbourhood!</b></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse mt-2" id="navbarNavAltMarkup">
+                <div class="navbar-nav ml-auto" id='navbar'>
+                    <a class="nav-item nav-link active pl-3" style="color: black;" href="/">Home<span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" style="color: black;" href="#">About</a>
+                    <a class="nav-item nav-link" style="color: black;" href="{% url 'neighbourhood' %}" >Neighbourhood</a>
+                    {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" style="color: black;" href="{% url 'profile' %}">Profile</a>
+                    <a class="nav-item nav-link" style="color: black;" href="/accounts/password_change">Change Password</a>
+                    <a class="nav-item nav-link" style="color: black;" href="{% url 'logout' %}">Logout</a>&nbsp;&nbsp;&nbsp;
+                    {% else %}
+                    <a class="nav-item nav-link" style="color: black;" href="/accounts/login">Login</a>
+                    <a class="nav-item nav-link" style="color: black;" href="/accounts/register">Register</a>&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main role="main" class="container-fluid">
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </main>
+    {% block scripts %}
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    {% bootstrap_javascript %}
+    {% endblock %}
+
+</body>
+
+</html>
