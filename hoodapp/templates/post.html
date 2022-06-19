@@ -1,0 +1,24 @@
+{%include 'django_registration/base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<body style=" background-image: url('https://cdn.pixabay.com/photo/2016/04/25/23/30/home-1353389__340.jpg');
+background-size: cover;
+background-repeat:  no-repeat;
+font-family: 'Comic Sans MS', cursive, sans-serif;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8  rgba-stylish-strong p-4">
+                <h3 class="text-center tt ">Add a post to your Neighbourhood</h3>
+                <form action="" method="post" novalidate>
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button type="submit" class="btn btn-sm btn-info "> Post</button>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</body>
+{% endblock %}
