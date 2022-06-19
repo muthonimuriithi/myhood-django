@@ -1,13 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>my hood</h1>
-    <p>For all your desired updates, chech them out here!</p>
+{%include 'django_registration/base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+<body style=" background-image: url('https://images.unsplash.com/photo-1482859454392-1b5326395032?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+background-size: cover;
+background-repeat:  no-repeat;
+font-family: 'Comic Sans MS', cursive, sans-serif;">
+    <div class="container text-center">
+        <div class="row mt-5 pt-5">
+            <div class="col-md-12">
+                <h2 class="home-title text-white font-weight-bold">Here your will discover your Neighborhood</h2>
+                <h3 class="home-subtitle text-white pt-3">Neighbourhood is the best way to stay informed about what’s going on in your
+                    neighborhood—whether it’s finding a last-minute babysitter, planning a local event, or sharing safety
+                    tips. There are so many ways that our neighbors can help us, we just need an easier way to connect with them.
+                </h3>
+                <form>
+                    <div class="row">
+                        <div class="col-md-12 pt-2">
+                           <a class="btn btn-sm btn-success home-button" href="{% url 'neighbourhood' %}">Find Your Neighbourhood</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
+{% endblock %}
