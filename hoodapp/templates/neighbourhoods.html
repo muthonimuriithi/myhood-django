@@ -1,0 +1,73 @@
+{%include 'django_registration/base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+<body style=" background-image: url('https://images.unsplash.com/photo-1602928402725-5388983f170b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80');
+background-size: cover;
+background-repeat:  no-repeat;
+font-family: 'Comic Sans MS', cursive, sans-serif;">
+    <div class="container-fluid">
+        <form class="form-inline d-flex justify-content-center md-form form-sm active-green-2 mt-2" action="{% url 'search' %}" method="get">
+            <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search Business" aria-label="Search" name="title">
+            <button class="btn btn-outline bg-light btn-sm my-2 my-sm-0" type="submit"><i class="fa fa-search text-success" aria-hidden="true"></i></button>
+        </form>
+        <div class="col-md-12 text-center">
+            <a href="{% url 'new-hood' %}" class="btn btn-outline bg-light btn-sm mb-4 text-dark"
+                style="text-align: center"> <i class="fa fa-plus-circle text-success"></i> New Neighbourhood</a>
+        </div>
+        <section class="magazine-section">
+            {% for neighbourhood in all_hoods %}
+            <div class="card mb-4 rgba-stylish-strong p-2">
+                <h3 class="text-center font-weight-bold mb-4 pt-3 green-text">{{ neighbourhood.name }} Neighbourhood</h3>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 mb-4">
+                        <div class="single-news">
+                            <div class="view overlay rounded z-depth-1-half mb-4">
+                                <img src="{{ neighbourhood.hood_photo.url }}" class="card-img-top" alt="{{ neighbourhood.name }}" height="300px">
+                                <a>
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                            <div class="news-data d-flex justify-content-between">
+                                <a href="#!" class=" white-text">
+                                    <h6 class="font-weight-bold">
+                                        <i class="fas fa-map-marker-alt text-success"></i>&nbsp;{{ neighbourhood.location }}
+                                    </h6>
+                                </a>
+                                <p class="font-weight-bold white-text pr-2">
+                                    <i class="fas fa-user-check text-success"></i>&nbsp;<b class="">{{ neighbourhood.members.count }}</b> Member{{neighbourhood.members.count | pluralize}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 mb-4">
+                        <div class="single-news mb-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="view overlay rounded z-depth-1 mb-4 p-2" style="height:300px;">
+                                        <div class="mask rgba-white-slight"></div>
+                                        <h3 class="text-center pt-4 green-text"><i class="fas fa-info-circle"></i>&nbsp;{{ neighbourhood.name }} Neighbourhood</h3>
+                                        <h5 class="text-center text-white pt-3">{{ neighbourhood.description}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="news-data d-flex justify-content-between">
+                                {% if request.user.profile.neighbourhood == neighbourhood %}
+                                <h6 class="exit">
+                                    <a href="{% url 'leave-hood' neighbourhood.id %}" class="btn btn-outline-danger btn-sm mb-2">Leave Neighbourhood</a>
+                                </h6>
+                                <p class="font-weight-bold white-text">
+                                    <a href="{% url 'single-hood' user.profile.neighbourhood.id %}" class="btn btn-outline-success btn-sm">Explore {{user.profile.neighbourhood.name}} Estate</a>
+                                </p>
+                                {% elif not request.user.profile.neighbourhood %}
+                                <a href="{% url 'join-hood' neighbourhood.id %}" class="btn btn-success btn-sm">Join Neighbourhood</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+</body>
+{% endblock %}
