@@ -39,12 +39,10 @@ git clone: https://github.com/muthonimuriithi/myhood-django.git
 
 * HTML 
 * CSS 
-* javascript 
-* Bootstrap 
+* Bootstrap4 
 * Python 
 * Django 
 * Postgres
-* django rest framework
 
 ## Live Link
 
