@@ -37,16 +37,16 @@
             </button>
             <div class="collapse navbar-collapse mt-2" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto" id='navbar'>
-                    <a class="nav-item nav-link active pl-3" style="color: black;" href="/">Home<span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" style="color: black;" href="#">About</a>
-                    <a class="nav-item nav-link" style="color: black;" href="{% url 'neighbourhood' %}" >Neighbourhood</a>
+                    <a class="nav-item nav-link active pl-3" style="color: white;" href="/">Home<span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" style="color: white;" href="#">About</a>
+                    <a class="nav-item nav-link" style="color: white;" href="{% url 'neighbourhood' %}" >Neighbourhood</a>
                     {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" style="color: black;" href="{% url 'profile' %}">Profile</a>
-                    <a class="nav-item nav-link" style="color: black;" href="/accounts/password_change">Change Password</a>
-                    <a class="nav-item nav-link" style="color: black;" href="{% url 'logout' %}">Logout</a>&nbsp;&nbsp;&nbsp;
+                    <a class="nav-item nav-link" style="color: white;" href="{% url 'profile' %}">Profile</a>
+                    <a class="nav-item nav-link" style="color: white;" href="/accounts/password_change">Change Password</a>
+                    <a class="nav-item nav-link" style="color: white;" href="{% url 'logout' %}">Logout</a>&nbsp;&nbsp;&nbsp;
                     {% else %}
-                    <a class="nav-item nav-link" style="color: black;" href="/accounts/login">Login</a>
-                    <a class="nav-item nav-link" style="color: black;" href="/accounts/register">Register</a>&nbsp;&nbsp;&nbsp;
+                    <a class="nav-item nav-link" style="color: white;" href="/accounts/login">Login</a>
+                    <a class="nav-item nav-link" style="color: white;" href="/accounts/register">Register</a>&nbsp;&nbsp;&nbsp;
                     {% endif %}
                 </div>
             </div>
