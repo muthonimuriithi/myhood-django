@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hoodapp',
+    'crispy_forms',
+    'bootstrap4',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -76,8 +82,10 @@ WSGI_APPLICATION = 'hoodproj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'hood',
+        'USER': 'moringa',
+        'PASSWORD': 'bless',
     }
 }
 
@@ -111,6 +119,13 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+ #adding config
+cloudinary.config( 
+  cloud_name = "dot6ek6s8", 
+  api_key = "827782748431952", 
+  api_secret = "Sa9cMnBeSAs9Y1U-c0h-YjdiPC4" 
+)
 
 
 # Static files (CSS, JavaScript, Images)
