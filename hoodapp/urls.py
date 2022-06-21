@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path 
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 
 urlpatterns=[
     path('',views.index,name='Index'),
-    path('logout', views.logout, name='logout'),
+    # re_path(r' logout', views.logout, name='logout'),
+    re_path('logout/(\d+)', views.logout, name='logout'),
     path('new/profile/',views.new_profile, name='profile'),
     path('all-hoods/',views.neighbourhoods,name='neighbourhood'),
     path('new-hood/', views.create_neighbourhood, name='new-hood'),
