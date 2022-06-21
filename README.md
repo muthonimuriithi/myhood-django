@@ -46,7 +46,7 @@ git clone: https://github.com/muthonimuriithi/myhood-django.git
 
 ## Live Link
 
-* [Click Here]() to view my application.
+* [Click Here](https://thejiranis.herokuapp.com/) to view my application.
 
 
 ## Contact Information
