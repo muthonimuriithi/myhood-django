@@ -17,7 +17,7 @@ def index(request):
 @csrf_protect
 def logout(request):
     django_logout(request)
-    return  HttpResponseRedirect('/index')
+    return  HttpResponseRedirect('/')
 
 @login_required(login_url='/accounts/login/')
 @csrf_protect
